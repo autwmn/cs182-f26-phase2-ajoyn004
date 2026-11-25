@@ -84,10 +84,30 @@ def mutateInt(rand,num):
         
 
 def mutateStr(rand,string):
+    choice=rand.randint(1,3)
+    if choice==1:
+    if choice==2:
+    if choice ==3:
+
+    return string
 def mutateList(rand,nums):
+    choice=rand.randint(1,4)
+    if choice==1:
+    elif choice==2:
+    elif choice ==3:
+    elif choice==4:
+
+    return nums
+    
 
 
 def mutate(rand,words,inputType):
+    choice=rand.randint(1,3)
+    if choice==1:
+    if choice==2:
+    if choice ==3:
+    
+    return []]
 
 def main():
 
