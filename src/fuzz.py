@@ -86,10 +86,17 @@ def mutateInt(rand,num):
 def mutateStr(rand,string):
     choice=rand.randint(1,3)
     if choice==1:
+        if len(string)>0:
+            index=rand.randint(0,len(string)-1)
+            string =string[:index]+randChar(rand)+ string[index:]
     if choice==2:
+        index=rand.randint(0, len(string))
+        string = string[:index] + randChar(rand)+ string[index:]
     if choice ==3:
-
+         index=rand.randint(0, len(string)-2)
+         string = string[:index] + string[index+1:]
     return string
+
 def mutateList(rand,nums):
     choice=rand.randint(1,4)
     if choice==1:
@@ -110,4 +117,47 @@ def mutate(rand,words,inputType):
     return []]
 
 def main():
+    args=sys.argv[1:]
+    target=None
+    seedPath=None
+    budget =15000
+    randomSeed=0
+    useRandom =False
+    i=0
+    while i<len(args):
+        if args[i]=="--budget":
+            budget=int(args[i+1])
+            i+=2
+        elif args[i]=="--seed":
+        elif args[i]=="--random":
+        elif target is None:
+            target=args[i]
+            i+=1
+        else:
+            seedPath=args[i]
+            i+=1
+    target=os.path.abspath(target)
+    inputType=detectType(target)
+    seeds=getSeeds(seeedPath)
+    rand=random.Random(randomSeed)
+
+    file=open(target)
+    code=compile(file.read(), target, "exec")
+    file.close()
+
+    sys.path.insert(0,os.patj.dirname(target))
+    tracker+coverage.Coverage(data_file=None, include= [target])
+    tracker.start()
+
+    corpus=[]
+    coveredLines=set()
+    seenErrors=set()
+    runCount=0
+    totalRuns=len(seeds)+budget
+    while runCOunt<totalRuns:
+        if runCount<len(seeds):
+        elif useRandom or len(corpus)==0:
+        else:
+
+
 
