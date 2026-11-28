@@ -1,6 +1,11 @@
 import os
 import sys
 import random
+import contextlib
+import traceback
+import io
+import coverage
+
 
 allowedLetters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
 edge=[0,1,-1,2,10,100,1000,-1000]
@@ -58,7 +63,10 @@ def randomInput(rand, inputType):
 
 
 def toInt(word):
-    return int(word)
+    try:
+        return int(word)
+    except ValueError:
+        return 0
 
 def mutateInt(rand,num):
     choice=rand.randint(1,5)
@@ -147,6 +155,34 @@ def mutate(rand,words,inputType):
         return result
     
     return []
+def runTarget(tracker, code, target, words):
+    savedArgv=sys.argvsys.argv=[target]+words
+    error=None
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):
+            with contextlib.redirect_stderr(io.StringIO()) :
+                exec(code, {"__name__": "__main__","__file__": target})
+    except SystemExit:
+        pass
+    except Exception as err:
+        crashLine=0
+        for entry in:
+            if entry.filename==target:
+                crashLine=entry.lineno
+        error=type(err).__name__+ " at line " + str(crashLine)
+    sys.argv=savedArgv
+
+
+
+    hitLines=set()
+    covData=tracker.get_data()
+    for file in covData.measured_files():
+        hitLines
+    return hitLines,error
+
+
+
+
 
 def main():
     args=sys.argv[1:]
