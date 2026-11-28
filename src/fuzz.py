@@ -2,8 +2,8 @@ import os
 import sys
 import random
 
-allowedLetters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
-edge=[0,2,-2,3,10,100,1000,-1000]
+allowedLetters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
+edge=[0,1,-1,2,10,100,1000,-1000]
 
 def detectType(target):
     file=open(target)
@@ -21,10 +21,10 @@ def getSeeds(seedPath):
     seeds=[]
     for name in sorted(os.listdir(seedPath)):
         if name.endswith(".txt"):
-            file=open(os.path.join(seedsPath,name))
+            file=open(os.path.join(seedPath,name))
             seeds.append(file.read().split())
             file.close()
-        return seeds
+    return seeds
 
 
 def randInt(rand):
@@ -44,7 +44,7 @@ def randomInput(rand, inputType):
         string=""
         for i in range(size):
             string+= randChar(rand)
-            return [string]
+        return [string]
                 
     if inputType=="ints":
         size=rand.randint(1,10)
@@ -70,7 +70,8 @@ def mutateInt(rand,num):
     if choice==2:
         return -num
     if choice==3:
-        rand.choice(edge)
+        return rand.choice(edge)
+        
     if choice==4:
         digits=list(str(abs(num)))
         index= rand.randint(0,len(digits)-1)
@@ -93,15 +94,16 @@ def mutateStr(rand,string):
         index=rand.randint(0, len(string))
         string = string[:index] + randChar(rand)+ string[index:]
     if choice ==3:
-         index=rand.randint(0, len(string)-2)
-         string = string[:index] + string[index+1:]
+         if len(string)>0:
+             index=rand.randint(0, len(string)-2)
+             string = string[:index] + string[index+1:]
     return string
 
 def mutateList(rand,nums):
     choice=rand.randint(1,4)
     if choice==1:
         if len(nums)>0:
-            index=rand.randint(0,len(nums)-1)
+            index=rand.randint(0,len(nums))
             nums[index]=mutateInt(rand,nums[index])
     elif choice==2:
         index=rand.randint(0,len(nums)-1)
@@ -133,16 +135,16 @@ def mutate(rand,words,inputType):
         for i in range(times):
             string=mutateStr(rand,string)
         return string.split()
-        if inputType=="ints":
-            nums=[]
-            for word in words:
-                num.append(toInt(word))
-            for i in range(times):
-                num=mutateList(rand,nums)
-            result=[]
-            for num in nums:
-                resilt.append(str(num))
-            return result
+    if inputType=="ints":
+        nums=[]
+        for word in words:
+            nums.append(toInt(word))
+        for i in range(times):
+            nums=mutateList(rand,nums)
+        result=[]
+        for num in nums:
+            result.append(str(num))
+        return result
     
     return []
 
@@ -163,7 +165,7 @@ def main():
             i+=2
         elif args[i]=="--random":
             useRandom=True
-            i+=2
+            i+=1
         elif target is None:
             target=args[i]
             i+=1
@@ -172,7 +174,7 @@ def main():
             i+=1
     target=os.path.abspath(target)
     inputType=detectType(target)
-    seeds=getSeeds(seeedPath)
+    seeds=getSeeds(seedPath)
     rand=random.Random(randomSeed)
 
     file=open(target)
@@ -180,7 +182,7 @@ def main():
     file.close()
 
     sys.path.insert(0,os.patj.dirname(target))
-    tracker+coverage.Coverage(data_file=None, include= [target])
+    tracker=coverage.Coverage(data_file=None, include= [target])
     tracker.start()
 
     corpus=[]
@@ -188,7 +190,7 @@ def main():
     seenErrors=set()
     runCount=0
     totalRuns=len(seeds)+budget
-    while runCOunt<totalRuns:
+    while runCount<totalRuns:
         if runCount<len(seeds):
             words=seeds[runCount]
         elif useRandom or len(corpus)==0:
@@ -211,10 +213,10 @@ def main():
             corpus.append(words)
             print("Execution " + str(runCount) + ": NEW #lines= " + str(len(coveredLines)) + " input="+ shown)
     tracker.stop()
-    print("DONE #executions=" +str(runCount) + "#corpus_inputs=" +str(len(corpus))+" #lines=" + str(len(coveredLines))+ " #exceptions=" +str(len(seenErrors)))
+    print("DONE #executions=" +str(runCount) + " #corpus_inputs=" +str(len(corpus))+" #lines=" + str(len(coveredLines))+ " #exceptions=" +str(len(seenErrors)))
 
-    if __name__=="__main__":
-        main()
+if __name__=="__main__":
+     main()
         
 
 
