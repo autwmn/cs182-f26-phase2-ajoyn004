@@ -1,0 +1,29 @@
+name: fuzzer
+
+on: [push, pull_request]
+
+
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: install
+        run: pip install coverage==7.10.7
+
+      - name: input tests
+        run: python3 .github/run_tests.py fixed
+
+      - name: bug tests
+        if: always()
+        run: python3 .github/run_tests.py bugs
+
+      - name: rand test
+        if: always()
+        run: python3 .github/run_tests.py random
