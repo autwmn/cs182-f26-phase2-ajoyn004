@@ -97,13 +97,13 @@ def mutateStr(rand,string):
     if choice==1:
         if len(string)>0:
             index=rand.randint(0,len(string)-1)
-            string =string[:index]+randChar(rand)+ string[index:]
+            string =string[:index]+randChar(rand)+ string[index+1:]
     if choice==2:
         index=rand.randint(0, len(string))
         string = string[:index] + randChar(rand)+ string[index:]
     if choice ==3:
          if len(string)>0:
-             index=rand.randint(0, len(string)-2)
+             index=rand.randint(0, len(string)-1)
              string = string[:index] + string[index+1:]
     return string
 
@@ -111,14 +111,14 @@ def mutateList(rand,nums):
     choice=rand.randint(1,4)
     if choice==1:
         if len(nums)>0:
-            index=rand.randint(0,len(nums))
+            index=rand.randint(0,len(nums-1))
             nums[index]=mutateInt(rand,nums[index])
     elif choice==2:
         index=rand.randint(0,len(nums)-1)
         nums.insert(index,randInt(rand))
     elif choice ==3:
         if len(nums)>0:
-            index=rand.randint(0,len(nums)-1)
+            index=rand.randint(0,len(nums))
             del nums[index]
     elif choice==4:
         if len(nums)>=2:
@@ -156,7 +156,8 @@ def mutate(rand,words,inputType):
     
     return []
 def runTarget(tracker, code, target, words):
-    savedArgv=sys.argvsys.argv=[target]+words
+    savedArgv=sys.argv
+    sys.argv=[target]+words
     error=None
     try:
         with contextlib.redirect_stdout(io.StringIO()):
@@ -166,7 +167,7 @@ def runTarget(tracker, code, target, words):
         pass
     except Exception as err:
         crashLine=0
-        for entry in:
+        for entry in traceback.extract_tb(err.__traceback__):
             if entry.filename==target:
                 crashLine=entry.lineno
         error=type(err).__name__+ " at line " + str(crashLine)
@@ -177,7 +178,7 @@ def runTarget(tracker, code, target, words):
     hitLines=set()
     covData=tracker.get_data()
     for file in covData.measured_files():
-        hitLines
+        hitLines.update(covData.lines(file))
     return hitLines,error
 
 
@@ -217,7 +218,7 @@ def main():
     code=compile(file.read(), target, "exec")
     file.close()
 
-    sys.path.insert(0,os.patj.dirname(target))
+    sys.path.insert(0,os.path.dirname(target))
     tracker=coverage.Coverage(data_file=None, include= [target])
     tracker.start()
 
@@ -232,7 +233,7 @@ def main():
         elif useRandom or len(corpus)==0:
             words =randomInput(rand,inputType)
         else:
-            base=rand.choice(corpus)=0
+            base=rand.choice(corpus)
             words = mutate(rand,base,inputType)
         runCount+=1
 
@@ -247,7 +248,7 @@ def main():
                 print("Execution " + str(runCount) + ": EXCEPTION " + error + " input="+ shown)
         elif isNew:
             corpus.append(words)
-            print("Execution " + str(runCount) + ": NEW #lines= " + str(len(coveredLines)) + " input="+ shown)
+            print("Execution " + str(runCount) + ": NEW #lines=" + str(len(coveredLines)) + " input="+ shown)
     tracker.stop()
     print("DONE #executions=" +str(runCount) + " #corpus_inputs=" +str(len(corpus))+" #lines=" + str(len(coveredLines))+ " #exceptions=" +str(len(seenErrors)))
 
