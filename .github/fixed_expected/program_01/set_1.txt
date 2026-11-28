@@ -1,0 +1,5 @@
+Execution 1: NEW #lines=16 input=-785615
+Execution 3: NEW #lines=17 input=0
+Execution 8: EXCEPTION ZeroDivisionError at line 21 input=-195
+Execution 18: NEW #lines=18 input=
+DONE #executions=20 #corpus_inputs=3 #lines=18 #exceptions=1

@@ -1,0 +1,7 @@
+Execution 1: NEW #lines=9 input=-6996
+Execution 3: NEW #lines=12 input=1000
+Execution 4: NEW #lines=16 input=7390
+Execution 6: NEW #lines=17 input=7000
+Execution 9: NEW #lines=18 input=7370
+Execution 13: EXCEPTION RuntimeError at line 22 input=7391
+DONE #executions=20 #corpus_inputs=5 #lines=19 #exceptions=1

@@ -1,0 +1,4 @@
+Execution 1: NEW #lines=14 input=3 -434 5 -341 8
+Execution 2: NEW #lines=15 input=-369857 -60 3 8
+Execution 7: EXCEPTION IndexError at line 10 input=21 -3
+DONE #executions=20 #corpus_inputs=2 #lines=15 #exceptions=1

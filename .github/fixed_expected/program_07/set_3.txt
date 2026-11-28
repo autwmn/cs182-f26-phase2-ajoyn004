@@ -1,0 +1,8 @@
+Execution 1: NEW #lines=12 input=8 -386 0
+Execution 2: NEW #lines=13 input=5 875 3 8
+Execution 3: NEW #lines=22 input=5 3 4
+Execution 6: NEW #lines=23 input=8 3 -386
+Execution 10: NEW #lines=24 input=875 5 -12
+Execution 13: NEW #lines=26 input=5 3 8
+Execution 17: EXCEPTION KeyError at line 35 input=5 8 8
+DONE #executions=20 #corpus_inputs=6 #lines=27 #exceptions=1

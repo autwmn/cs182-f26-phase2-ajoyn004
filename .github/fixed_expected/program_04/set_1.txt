@@ -1,0 +1,10 @@
+Execution 1: NEW #lines=20 input=5 3 8
+Execution 2: NEW #lines=21 input=-536715
+Execution 4: NEW #lines=22 input=8 5 -2
+Execution 6: NEW #lines=23 input=5 11 8
+Execution 7: NEW #lines=24 input=8 -2 5
+Execution 8: NEW #lines=25 input=-1 18 5
+Execution 11: NEW #lines=29 input=8 2 5
+Execution 12: NEW #lines=30 input=5 2 8
+Execution 18: EXCEPTION ValueError at line 23 input=100 2 5
+DONE #executions=20 #corpus_inputs=8 #lines=31 #exceptions=1

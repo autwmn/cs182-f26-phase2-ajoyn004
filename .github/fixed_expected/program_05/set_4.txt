@@ -1,0 +1,3 @@
+Execution 1: NEW #lines=23 input=hel56o
+Execution 2: EXCEPTION IndexError at line 34 input=lryhe2lplv6MpmAo
+DONE #executions=20 #corpus_inputs=1 #lines=27 #exceptions=1

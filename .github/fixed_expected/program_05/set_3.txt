@@ -1,0 +1,4 @@
+Execution 1: NEW #lines=25 input=e5eSToDo
+Execution 3: NEW #lines=26 input=w5melkocyDo
+Execution 9: EXCEPTION IndexError at line 34 input=X5meBlTocDEo
+DONE #executions=20 #corpus_inputs=2 #lines=27 #exceptions=1

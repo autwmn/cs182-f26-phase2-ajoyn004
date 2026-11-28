@@ -1,0 +1,9 @@
+Execution 1: NEW #lines=22 input=CS6rHiU
+Execution 2: EXCEPTION KeyError at line 36 input=CS960
+Execution 3: NEW #lines=28 input=CS602
+Execution 4: NEW #lines=29 input=C5S60b
+Execution 6: NEW #lines=30 input=s6b
+Execution 11: NEW #lines=31 input=CS60i
+Execution 12: NEW #lines=32 input=CSB0i
+Execution 13: NEW #lines=33 input=W5S60b
+DONE #executions=20 #corpus_inputs=7 #lines=33 #exceptions=1

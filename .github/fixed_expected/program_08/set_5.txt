@@ -1,0 +1,4 @@
+Execution 1: EXCEPTION ZeroDivisionError at line 17 input=hllJ
+Execution 2: NEW #lines=13 input=e4og
+Execution 12: NEW #lines=14 input=elo
+DONE #executions=20 #corpus_inputs=2 #lines=14 #exceptions=1
