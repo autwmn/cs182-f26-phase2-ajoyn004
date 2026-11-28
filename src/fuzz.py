@@ -111,14 +111,14 @@ def mutateList(rand,nums):
     choice=rand.randint(1,4)
     if choice==1:
         if len(nums)>0:
-            index=rand.randint(0,len(nums-1))
+            index=rand.randint(0,len(nums)-1)
             nums[index]=mutateInt(rand,nums[index])
     elif choice==2:
-        index=rand.randint(0,len(nums)-1)
+        index=rand.randint(0,len(nums))
         nums.insert(index,randInt(rand))
     elif choice ==3:
         if len(nums)>0:
-            index=rand.randint(0,len(nums))
+            index=rand.randint(0,len(nums)-1)
             del nums[index]
     elif choice==4:
         if len(nums)>=2:
